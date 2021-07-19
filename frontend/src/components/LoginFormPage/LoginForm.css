@@ -1,0 +1,9 @@
+.login-form{
+    margin-top: 80px;
+    width: 70%;
+    min-height: 120px;
+    display: flex;
+    justify-content: center;
+    color: white;
+    border: 5px solid black;
+}

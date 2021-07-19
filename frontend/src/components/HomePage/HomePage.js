@@ -1,8 +1,19 @@
-
+import './HomePage.css';
 
 function HomePage(){
     return (
-        <h1 className='placeholder'>Home Page</h1>
+        <>
+            <h1 className='pptitle'>Welcome to Possum Party!</h1>
+            <div className='home-main'>
+                <img src='./images/home_possum2.png'/>
+                <div className='welcome-text'>
+                    <span>Tired of corporate food waste? Want to save on your bills? Join the ever-growing </span>
+                    <a href='https://en.wikipedia.org/wiki/Freeganism'>Freeganism</a>
+                    <span> movement! Most of the food thrown away by big grocery stores is still perfectly safe and edible, even if it's technically past its sell-by date. Although there is still some stigma surrounding "dumpster diving," informed and safe diving is a great way to combat food waste while saving a few bucks in the process!</span>
+                    <h3>Why not find a Dive Spot near you, and join the Possum Party today?</h3>
+                </div>
+            </div>
+        </>
     )
 }
 

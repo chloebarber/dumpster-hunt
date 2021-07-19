@@ -6,7 +6,12 @@ import './DiveSpot.css';
 
 function DiveSpotPage(){
     return (
-        <h1 className='placeholder'>Dive Spot Placeholder</h1>
+        <>
+            <h1 className='placeholder'>Dive Spot Placeholder</h1>
+            <img src='./images/demo_dumpster.jpg'/>
+            <div>description look it's very long wooo</div>
+
+        </>
     )
 }
 
