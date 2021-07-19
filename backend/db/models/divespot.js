@@ -1,7 +1,6 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   const DiveSpot = sequelize.define('DiveSpot', {
-    id: DataTypes.INTEGER,
     discoveredBy: DataTypes.INTEGER,
     title: DataTypes.STRING,
     status: DataTypes.STRING,
