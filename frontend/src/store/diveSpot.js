@@ -1,9 +1,11 @@
-
+import { csrfFetch } from './csrf';
 
 
 const LOAD_ONE = '/diveSpot/LOAD_ONE';
 const LOAD_ALL = '/diveSpot/LOAD_ALL';
 const CLEANUP = '/diveSpot/CLEANUP';
+const CREATE_SPOT ='/diveSpot/CREATE_ONE';
+const DELETE = '/diveSpot/DELETE';
 
 const loadSpot = (spot) => ({
     type: LOAD_ONE,
@@ -38,6 +40,44 @@ export const getAllSpots = () => async (dispatch) => {
 	}
 };
 
+export const createSpot = (newSpot) => async (dispatch) => {
+    const { title, description } = newSpot;
+	const response = await csrfFetch(`/api/diveSpots`,{
+        method: "POST",
+        body: JSON.stringify({
+            title,
+            description,
+        }),
+      });
+	if (response.ok) {
+		const spots = await response.json();
+		dispatch(loadAll(spots));
+	}
+};
+
+export const deleteSpot = (spotId) => async (dispatch) => {
+	const response = await csrfFetch(`/api/diveSpots/${spotId}`,{
+        method: "DELETE"
+      });
+    const spots = await response.json();
+    dispatch(cleanupSpot(spotId));
+    dispatch(loadAll(spots));
+};
+
+export const editSpot = (spotId, updatedData) => async (dispatch) => {
+    const { title, description } = updatedData;
+	const response = await csrfFetch(`/api/diveSpots/${spotId}`,{
+        method: "PUT",
+        body: JSON.stringify({
+            title,
+            description,
+        }),
+      });
+    const spots = await response.json();
+    dispatch(cleanupSpot(spotId));
+    dispatch(loadAll(spots));
+};
+
 export const cleanupSpot = () => async (dispatch) => {
 		dispatch(cleanup());
 };
@@ -52,7 +92,6 @@ const diveSpotReducer = (state = {}, action) => {
             return newState;
 		}
         case LOAD_ALL: {
-            console.log('u tried');
             newState = Object.assign({}, state);
             newState.allSpots = action.allSpots;
             return newState;

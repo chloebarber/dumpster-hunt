@@ -2,15 +2,48 @@ import React, { useState, useEffect } from 'react';
 import * as sessionActions from '../../store/session';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect, useParams, Link } from 'react-router-dom';
-import {getSpot, getAllSpots, cleanupSpot} from '../../store/diveSpot.js'
+import {getSpot, getAllSpots, cleanupSpot, createSpot, deleteSpot, editSpot} from '../../store/diveSpot.js'
+
 import './DiveSpot.css';
 
 function DiveSpotPage(){
+    
     const {diveId} = useParams();
     const selectedSpot = useSelector((state) => state.spots.currSpot);
     const allSpots = useSelector((state) => state.spots.allSpots);
+    const [errors, setErrors] = useState([]);
+
+    const [title, setTitle] = useState("");
+    const [description, setDescription] = useState("");
     
     const dispatch = useDispatch();
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+
+        setErrors([]);
+        return dispatch(createSpot({title, description}))
+          .catch(async (res) => {
+            const data = await res.json();
+            if (data && data.errors) setErrors(data.errors);
+          });
+      }
+
+    function handleDelete(e){
+        return dispatch(deleteSpot(diveId))
+          .catch(async (res) => {
+            const data = await res.json();
+            if (data && data.errors) setErrors(data.errors);
+          });
+    }
+
+    function handleEdit(e){
+        return dispatch(editSpot(diveId, {title: "placeholder", description: 'placeholder'}))
+          .catch(async (res) => {
+            const data = await res.json();
+            if (data && data.errors) setErrors(data.errors);
+          });
+    }
     
     useEffect(()=>{
         dispatch(getAllSpots());
@@ -27,6 +60,8 @@ function DiveSpotPage(){
         return (
             <>
                 <h1>Selected Spot is:  {selectedSpot.id}</h1>
+                <button onClick={handleDelete}>Delete Spot</button>
+                <button onClick={handleEdit}>Edit Spot</button>
                 <h1 className='title'>{selectedSpot.title}</h1>
                 <img src='./images/demo_dumpster.jpg'/>
                 <div className="discovery">
@@ -59,12 +94,11 @@ function DiveSpotPage(){
                 })}
             </ul>
             <h1>New Spot:</h1>
-            <form action="/diveSpots" method="post"  id="reviewForm">
+            <form onSubmit={handleSubmit}  id="reviewForm">
                 <div>
-                    {/* <input type='hidden' name='_csrf' value={csrfToken}/> */}
                     <span>Title</span>
-                    <input id="title" name="title"></input>
-                    <textarea id="description" name='description'/>
+                    <input id="title" name="title" onChange={(e) => setTitle(e.target.value)}></input>
+                    <textarea id="description" name='description' onChange={(e) => setDescription(e.target.value)}/>
                     <button type='submit' id="submitbutton">Create New DiveSpot</button>
                 </div>
             </form>

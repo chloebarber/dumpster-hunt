@@ -8,7 +8,7 @@ const { DiveSpot, Review, User } = db;
 router.get(
     "/",
     asyncHandler(async (req, res) => {
-        let spots = await DiveSpot.findAll({limit: 10})
+        let spots = await DiveSpot.findAll()
         res.json(spots);
     })
 );
@@ -23,9 +23,8 @@ router.get(
 
 
 //Create / update Spot routes
-router.post(
+router.post( //new Spot
     "/",
-    //csrfProtection, //csrf goes here
     asyncHandler(async (req, res) => {
         try {
             await DiveSpot.create({
@@ -37,16 +36,18 @@ router.post(
           } catch (e) {
             res.redirect("/login"); //god knows why this would error but here's some handling
           }
-      
-          res.redirect(`/diveSpots}`);
+          let spots = await DiveSpot.findAll()
+          res.json(spots);
     })
 );
 
-router.put(
+router.put( //update Spot
     "/:id",
     asyncHandler(async (req, res) => {
-        let spot = await DiveSpot.findByPk(req.params.id, {include: [Review, User],});
-        res.json(spot);
+        let spot = await DiveSpot.findByPk(req.params.id);
+        spot.update(req.body)
+        let spots = await DiveSpot.findAll()
+        res.json(spots);
     })
 );
 
@@ -68,6 +69,15 @@ router.post( //review creation
     })
   );
 
+router.delete( //delete Spot
+    "/:id",
+    asyncHandler(async (req, res) => {
+        let spot = await DiveSpot.findByPk(req.params.id);
+        await spot.destroy();
+        let spots = await DiveSpot.findAll()
+        res.json(spots);
+    })
+);
 
 
 module.exports = router
