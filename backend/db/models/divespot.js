@@ -8,7 +8,7 @@ module.exports = (sequelize, DataTypes) => {
     description: DataTypes.TEXT
   }, {});
   DiveSpot.associate = function(models) {
-    DiveSpot.hasOne(models.User, {foreignKey: "discoveredBy"});
+    DiveSpot.belongsTo(models.User, {foreignKey: "discoveredBy"});
     DiveSpot.hasMany(models.Review, {foreignKey: "spotId"});
   };
   return DiveSpot;

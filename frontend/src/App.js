@@ -29,7 +29,7 @@ function App() {
           <Route path="/signup">
             <SignupFormPage />
           </Route>
-          <Route path="/divespots">
+          <Route exact path={["/divespots","/divespots/:diveId"]}>
             <DiveSpotPage />
           </Route>
         </Switch>

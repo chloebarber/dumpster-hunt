@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const asyncHandler = require('express-async-handler');
-const { DiveSpot } = require('../../db/models');
+const db = require('../../db/models');
+const { DiveSpot, Review, User } = db;
 
 router.get(
     "/",
@@ -13,7 +14,7 @@ router.get(
 router.get(
     "/:id",
     asyncHandler(async (req, res) => {
-        let spot = await DiveSpot.findByPk(req.params.id);
+        let spot = await DiveSpot.findByPk(req.params.id, {include: [Review, User],});
         res.json(spot);
     })
 );
