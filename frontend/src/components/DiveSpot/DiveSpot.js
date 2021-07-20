@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import * as sessionActions from '../../store/session';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect, useParams, Link } from 'react-router-dom';
-import {getSpot, getAllSpots} from '../../store/diveSpot.js'
+import {getSpot, getAllSpots, cleanupSpot} from '../../store/diveSpot.js'
 import './DiveSpot.css';
 
 function DiveSpotPage(){
@@ -14,6 +14,7 @@ function DiveSpotPage(){
     
     useEffect(()=>{
         dispatch(getAllSpots());
+        dispatch(cleanupSpot());
     },[dispatch])
     
     useEffect(()=>{
@@ -29,7 +30,7 @@ function DiveSpotPage(){
                 <h1 className='title'>{selectedSpot.title}</h1>
                 <img src='./images/demo_dumpster.jpg'/>
                 <div className="discovery">
-                    <span>Discovered by: </span>
+                    <span>Discovered by Possum: </span>
                     <a href='/'>{selectedSpot.User.username}</a>
                 </div>
                 <div>{selectedSpot.description}</div>
@@ -57,6 +58,16 @@ function DiveSpotPage(){
                     )
                 })}
             </ul>
+            <h1>New Spot:</h1>
+            <form action="/diveSpots" method="post"  id="reviewForm">
+                <div>
+                    {/* <input type='hidden' name='_csrf' value={csrfToken}/> */}
+                    <span>Title</span>
+                    <input id="title" name="title"></input>
+                    <textarea id="description" name='description'/>
+                    <button type='submit' id="submitbutton">Create New DiveSpot</button>
+                </div>
+            </form>
         </>
     )}
     else

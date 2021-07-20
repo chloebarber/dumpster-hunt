@@ -3,6 +3,7 @@
 
 const LOAD_ONE = '/diveSpot/LOAD_ONE';
 const LOAD_ALL = '/diveSpot/LOAD_ALL';
+const CLEANUP = '/diveSpot/CLEANUP';
 
 const loadSpot = (spot) => ({
     type: LOAD_ONE,
@@ -12,6 +13,10 @@ const loadSpot = (spot) => ({
 const loadAll = (allSpots) => ({
     type: LOAD_ALL,
     allSpots
+})
+
+const cleanup = () => ({
+    type: CLEANUP
 })
 
 export const getSpot = (spotId) => async (dispatch) => {
@@ -33,6 +38,10 @@ export const getAllSpots = () => async (dispatch) => {
 	}
 };
 
+export const cleanupSpot = () => async (dispatch) => {
+		dispatch(cleanup());
+};
+
 
 const diveSpotReducer = (state = {}, action) => {
 	let newState;
@@ -46,6 +55,11 @@ const diveSpotReducer = (state = {}, action) => {
             console.log('u tried');
             newState = Object.assign({}, state);
             newState.allSpots = action.allSpots;
+            return newState;
+        }
+        case CLEANUP: {
+            newState = Object.assign({}, state);
+            newState.currSpot = null;
             return newState;
         }
 		default:
