@@ -9,25 +9,14 @@ import './DiveSpot.css';
 function DiveSpotPage(){
     
     const {diveId} = useParams();
+    const loggedUser = useSelector((state) => state.session.user);
     const selectedSpot = useSelector((state) => state.spots.currSpot);
     const allSpots = useSelector((state) => state.spots.allSpots);
+    
     const [errors, setErrors] = useState([]);
-
-    const [title, setTitle] = useState("");
-    const [description, setDescription] = useState("");
     
     const dispatch = useDispatch();
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-
-        setErrors([]);
-        return dispatch(createSpot({title, description}))
-          .catch(async (res) => {
-            const data = await res.json();
-            if (data && data.errors) setErrors(data.errors);
-          });
-      }
 
     function handleDelete(e){
         return dispatch(deleteSpot(diveId))
@@ -54,20 +43,28 @@ function DiveSpotPage(){
         dispatch(getSpot(diveId));
     },[diveId])
 
-
+    function loggedInUserOptions(){
+        if(true){ //loggedUser.id === selectedSpot.discoveredBy)
+            return (
+                <div className="useroptions">
+                <h1>User Options</h1>
+                <button onClick={handleDelete}>Delete Spot</button>
+                <button onClick={handleEdit}>Edit Spot</button>
+                </div>
+            )
+        }
+    }
     
     if(selectedSpot){
         return (
             <div className="diveSpotWrapper">
-                <h1>Selected Spot is:  {selectedSpot.id}</h1>
-                <button onClick={handleDelete}>Delete Spot</button>
-                <button onClick={handleEdit}>Edit Spot</button>
                 <h1 className='title'>{selectedSpot.title}</h1>
-                <img src='./images/demo_dumpster.jpg'/>
+                <img src='./images/demo_dumpster.jpg' alt="imagine a dumpster here"/>
                 <div className="discovery">
                     <span>Discovered by Possum: </span>
                     <a href='/'>{selectedSpot.User.username}</a>
                 </div>
+                {loggedInUserOptions()}
                 <div>{selectedSpot.description}</div>
                 <h1>Reviews</h1>
                 <div className='reviews-div'>
@@ -88,19 +85,12 @@ function DiveSpotPage(){
                 {allSpots.map((spot) => {
                     return (
                         <li>
-                        <Link to={`/diveSpots/${spot.id}`}>{spot.title}</Link>
+                        <Link to={`/divespots/${spot.id}`}>{spot.title}</Link>
                         </li>
                     )
                 })}
             </div>
-            <form onSubmit={handleSubmit}  id="newSpotForm">
-                <h1>New Spot:</h1>
-                <span>Title</span>
-                <input id="title" name="title" onChange={(e) => setTitle(e.target.value)}></input>
-                <span>Description</span>
-                <textarea id="description" name='description' onChange={(e) => setDescription(e.target.value)}/>
-                <button type='submit' id="submitbutton">Create New DiveSpot</button>
-            </form>
+            <Link to="/divespots/new">Found a new dumpster, and wanna share? Click here!</Link>
         </div>
     )}
     else

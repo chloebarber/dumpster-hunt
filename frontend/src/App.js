@@ -5,6 +5,7 @@ import LoginFormPage from "./components/LoginFormPage";
 import SignupFormPage from "./components/SignupFormPage";
 import HomePage from "./components/HomePage/HomePage";
 import DiveSpotPage from "./components/DiveSpot/DiveSpot"
+import NewDiveSpotPage from "./components/DiveSpot/NewDiveSpot"
 import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
 
@@ -28,6 +29,9 @@ function App() {
           </Route>
           <Route path="/signup">
             <SignupFormPage />
+          </Route>
+          <Route path="/divespots/new">
+            <NewDiveSpotPage />
           </Route>
           <Route exact path={["/divespots","/divespots/:diveId"]}>
             <DiveSpotPage />

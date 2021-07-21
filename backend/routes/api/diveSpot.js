@@ -21,6 +21,14 @@ router.get(
     })
 );
 
+router.get(
+  "/new",
+  asyncHandler(async (req, res) => {
+      let spots = await DiveSpot.findAll()
+      res.json(spots);
+  })
+);
+
 
 //Create / update Spot routes
 router.post( //new Spot

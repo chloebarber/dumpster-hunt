@@ -5,7 +5,7 @@ function HomePage(){
         <>
             <h1 className='pptitle'>Welcome to Possum Party!</h1>
             <div className='home-main'>
-                <img src='./images/home_possum2.png'/>
+                <img src='./images/home_possum2.png' alt="Possum Party Logo"/>
                 <div className='welcome-text'>
                     <span>Tired of corporate food waste? Want to save on your bills? Join the ever-growing </span>
                     <a href='https://en.wikipedia.org/wiki/Freeganism'>Freeganism</a>
