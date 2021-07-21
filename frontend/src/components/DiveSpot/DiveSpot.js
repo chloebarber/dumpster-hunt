@@ -58,7 +58,7 @@ function DiveSpotPage(){
     
     if(selectedSpot){
         return (
-            <>
+            <div className="diveSpotWrapper">
                 <h1>Selected Spot is:  {selectedSpot.id}</h1>
                 <button onClick={handleDelete}>Delete Spot</button>
                 <button onClick={handleEdit}>Edit Spot</button>
@@ -77,14 +77,14 @@ function DiveSpotPage(){
                     </ul>
                 </div>
 
-            </>
+            </div>
         )
     }
     else if (allSpots){
         return (
-        <>
-            <h1>All Spots:</h1>
-            <ul>
+        <div className="diveSpotWrapper">
+            <div className="spotList">
+                <h1>All Spots:</h1>
                 {allSpots.map((spot) => {
                     return (
                         <li>
@@ -92,17 +92,16 @@ function DiveSpotPage(){
                         </li>
                     )
                 })}
-            </ul>
-            <h1>New Spot:</h1>
-            <form onSubmit={handleSubmit}  id="reviewForm">
-                <div>
-                    <span>Title</span>
-                    <input id="title" name="title" onChange={(e) => setTitle(e.target.value)}></input>
-                    <textarea id="description" name='description' onChange={(e) => setDescription(e.target.value)}/>
-                    <button type='submit' id="submitbutton">Create New DiveSpot</button>
-                </div>
+            </div>
+            <form onSubmit={handleSubmit}  id="newSpotForm">
+                <h1>New Spot:</h1>
+                <span>Title</span>
+                <input id="title" name="title" onChange={(e) => setTitle(e.target.value)}></input>
+                <span>Description</span>
+                <textarea id="description" name='description' onChange={(e) => setDescription(e.target.value)}/>
+                <button type='submit' id="submitbutton">Create New DiveSpot</button>
             </form>
-        </>
+        </div>
     )}
     else
         return (<h1>Loading...</h1>)

@@ -2,8 +2,9 @@
 #root{
     display: flex;
     height: 100vh;
-    background-color: rgb(18, 124, 18);
-    /* background-image: url('/public/images/dumpsterbackground.png'); */
+    /* background-color: rgb(18, 124, 18); */
+    background-image: url('./images/dumpsterbackground.png');
+    background-size: cover;
     flex-direction: column;
     align-items: center;
 }
