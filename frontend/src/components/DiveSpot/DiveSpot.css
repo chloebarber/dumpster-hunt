@@ -5,7 +5,7 @@
 .diveSpotWrapper{
     margin-top: 20px;
     background: rgb(0,0,0);
-    background: linear-gradient(0deg, rgba(0,0,0,1) 27%, rgba(149,149,149,1) 100%);
+    background: linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(40,40,40,1) 59%, rgba(78,78,78,1) 100%); 
     color: white;
     border: 4px inset black;
     width: 75%;
