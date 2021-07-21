@@ -37,8 +37,7 @@ router.post( //new Spot
         try {
             await DiveSpot.create({
               title: req.body.title,
-              discoveredBy: 1,
-              //discoveredBy: req.session.auth.id,
+              discoveredBy: req.body.discoveredBy,
               description: req.body.description,
             });
           } catch (e) {

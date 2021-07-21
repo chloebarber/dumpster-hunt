@@ -10,7 +10,6 @@ import './DiveSpot.css';
 function NewDiveSpotPage(){
     
     const loggedUser = useSelector((state) => state.session.user);
-    console.log(loggedUser)
     const [errors, setErrors] = useState([]);
 
     const [title, setTitle] = useState("");
@@ -23,7 +22,7 @@ function NewDiveSpotPage(){
         alert("New Spot created successfully! Redirecting you to the Spots list now...");
         window.location.replace("/divespots");
         setErrors([]);
-        return dispatch(createSpot({title, description}))
+        return dispatch(createSpot({title, description, discoveredBy: loggedUser.id,}))
           .catch(async (res) => {
             const data = await res.json();
             if (data && data.errors) setErrors(data.errors);
