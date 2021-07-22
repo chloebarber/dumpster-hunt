@@ -54,6 +54,8 @@ export const createSpot = (newSpot) => async (dispatch) => {
 	if (response.ok) {
 		const spots = await response.json();
 		dispatch(loadAll(spots));
+        alert("New Spot created successfully! Redirecting you to the Spots list now...");
+        window.location.replace("/divespots");
 	}
 };
 
@@ -63,7 +65,9 @@ export const deleteSpot = (spotId) => async (dispatch) => {
       });
     const spots = await response.json();
     dispatch(cleanupSpot(spotId));
-    dispatch(loadAll(spots));
+    await dispatch(loadAll(spots));
+    alert("Delete successful! Redirecting you to the Spots list now...");
+    window.location.replace("/divespots");
 };
 
 export const editSpot = (spotId, updatedData) => async (dispatch) => {
@@ -75,10 +79,11 @@ export const editSpot = (spotId, updatedData) => async (dispatch) => {
             description,
         }),
       });
-      console.log("poop");
-    const spots = await response.json();
+    const spot = await response.json();
     dispatch(cleanupSpot(spotId));
-    dispatch(loadAll(spots));
+    await dispatch(loadSpot(spot));
+    alert("Edit successful!");  
+    // window.location.reload();
 };
 
 export const cleanupSpot = () => async (dispatch) => {

@@ -24,7 +24,7 @@
     margin-top: 20px;
 }
 
-.reviews-div{
+.reviewsdiv{
     grid-area: review;
     width: 100%;
     display: flex;
@@ -32,7 +32,7 @@
     align-items: left;
 }
 
-.reviews-div > div{
+.reviewsdiv > div{
     margin: 10px;
     padding: 10px;
     border: 3px solid black;

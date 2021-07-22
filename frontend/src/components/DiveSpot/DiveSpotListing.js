@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import * as sessionActions from '../../store/session';
+// import * as sessionActions from '../../store/session';
 import { useDispatch, useSelector } from 'react-redux';
-import { Redirect, useParams, Link } from 'react-router-dom';
-import {getSpot, getAllSpots, cleanupSpot, createSpot, deleteSpot, editSpot} from '../../store/diveSpot.js'
+import { useParams, Link } from 'react-router-dom';
+import {getSpot, getAllSpots, cleanupSpot} from '../../store/diveSpot.js'
 
 import './DiveSpot.css';
 
 function DiveSpotListingPage(){
     
     const {diveId} = useParams();
-    const selectedSpot = useSelector((state) => state.spots.currSpot);
+    // const selectedSpot = useSelector((state) => state.spots.currSpot);
     const allSpots = useSelector((state) => state.spots.allSpots);
     
     const [errors, setErrors] = useState([]);

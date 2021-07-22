@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import * as sessionActions from '../../store/session';
+import React, { useState } from 'react';
+// import * as sessionActions from '../../store/session';
 import { useDispatch, useSelector } from 'react-redux';
-import { Redirect, useParams, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import {createSpot} from '../../store/diveSpot.js'
 
 import './DiveSpot.css';
@@ -20,8 +20,6 @@ function NewDiveSpotPage(){
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        alert("New Spot created successfully! Redirecting you to the Spots list now...");
-        window.location.replace("/divespots");
         setErrors([]);
         return dispatch(createSpot({title, description, imageUrl, discoveredBy: loggedUser.id,}))
           .catch(async (res) => {

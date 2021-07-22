@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import * as sessionActions from '../../store/session';
+// import * as sessionActions from '../../store/session';
 import { useDispatch, useSelector } from 'react-redux';
-import { Redirect, useParams, Link } from 'react-router-dom';
-import {getSpot, getAllSpots, cleanupSpot, createSpot, deleteSpot, editSpot} from '../../store/diveSpot.js'
+import { useParams } from 'react-router-dom';
+import {getSpot, deleteSpot, editSpot} from '../../store/diveSpot.js'
 
 import './DiveSpot.css';
 import './individual.css';
@@ -38,10 +38,6 @@ function IndividualDiveSpotPage(){
           });
     }
     
-    useEffect(()=>{
-        dispatch(getAllSpots());
-        dispatch(cleanupSpot());
-    },[dispatch])
     
     useEffect(()=>{
         dispatch(getSpot(diveId));
@@ -87,7 +83,7 @@ function IndividualDiveSpotPage(){
                         {ownerOptions()}
                     </div>
                 </div>
-                <div className='reviews-div'>
+                <div className='reviewsdiv'>
                     <h1>Reviews</h1>
                     {writeReview()}
                     {selectedSpot.Reviews.map((review) => {

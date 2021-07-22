@@ -52,10 +52,9 @@ router.post( //new Spot
 router.put( //update Spot
     "/:id",
     asyncHandler(async (req, res) => {
-        let spot = await DiveSpot.findByPk(req.params.id);
+        let spot = await DiveSpot.findByPk(req.params.id, {include: [Review, User],});
         spot.update(req.body)
-        let spots = await DiveSpot.findAll()
-        res.json(spots);
+        res.json(spot);
     })
 );
 
