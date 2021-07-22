@@ -4,8 +4,8 @@ import { csrfFetch } from './csrf';
 const LOAD_ONE = '/diveSpot/LOAD_ONE';
 const LOAD_ALL = '/diveSpot/LOAD_ALL';
 const CLEANUP = '/diveSpot/CLEANUP';
-const CREATE_SPOT ='/diveSpot/CREATE_ONE';
-const DELETE = '/diveSpot/DELETE';
+// const CREATE_SPOT ='/diveSpot/CREATE_ONE';
+// const DELETE = '/diveSpot/DELETE';
 
 const loadSpot = (spot) => ({
     type: LOAD_ONE,
@@ -41,18 +41,21 @@ export const getAllSpots = () => async (dispatch) => {
 };
 
 export const createSpot = (newSpot) => async (dispatch) => {
-    const { title, description, discoveredBy } = newSpot;
+    const { title, description, discoveredBy, imageUrl } = newSpot;
 	const response = await csrfFetch(`/api/diveSpots`,{
         method: "POST",
         body: JSON.stringify({
             title,
             description,
-            discoveredBy
+            discoveredBy,
+            imageUrl,
         }),
       });
 	if (response.ok) {
 		const spots = await response.json();
 		dispatch(loadAll(spots));
+        alert("New Spot created successfully! Redirecting you to the Spots list now...");
+        window.location.replace("/divespots");
 	}
 };
 
@@ -62,7 +65,9 @@ export const deleteSpot = (spotId) => async (dispatch) => {
       });
     const spots = await response.json();
     dispatch(cleanupSpot(spotId));
-    dispatch(loadAll(spots));
+    await dispatch(loadAll(spots));
+    alert("Delete successful! Redirecting you to the Spots list now...");
+    window.location.replace("/divespots");
 };
 
 export const editSpot = (spotId, updatedData) => async (dispatch) => {
@@ -74,10 +79,11 @@ export const editSpot = (spotId, updatedData) => async (dispatch) => {
             description,
         }),
       });
-      console.log("poop");
-    const spots = await response.json();
+    const spot = await response.json();
     dispatch(cleanupSpot(spotId));
-    dispatch(loadAll(spots));
+    await dispatch(loadSpot(spot));
+    alert("Edit successful!");  
+    // window.location.reload();
 };
 
 export const cleanupSpot = () => async (dispatch) => {

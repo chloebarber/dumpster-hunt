@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Route, Switch } from "react-router-dom";
+import * as sessionActions from "./store/session";
+import Navigation from "./components/Navigation";
 import LoginFormPage from "./components/LoginFormPage";
 import SignupFormPage from "./components/SignupFormPage";
 import HomePage from "./components/HomePage/HomePage";
-import DiveSpotPage from "./components/DiveSpot/DiveSpot"
-import NewDiveSpotPage from "./components/DiveSpot/NewDiveSpot"
-import * as sessionActions from "./store/session";
-import Navigation from "./components/Navigation";
+// import DiveSpotPage from "./components/DiveSpot/DiveSpot"
+import NewDiveSpotPage from "./components/NewSpot/NewDiveSpot"
+import IndividualDiveSpotPage from "./components/ViewOneSpot/IndividualDiveSpot"
+import DiveSpotListingPage from "./components/SpotDirectory/DiveSpotListing"
 
 function App() {
   const dispatch = useDispatch();
@@ -33,8 +35,11 @@ function App() {
           <Route path="/divespots/new">
             <NewDiveSpotPage />
           </Route>
-          <Route exact path={["/divespots","/divespots/:diveId"]}>
-            <DiveSpotPage />
+          <Route exact path={"/divespots/:diveId"}>
+            <IndividualDiveSpotPage />
+          </Route>
+          <Route exact path={"/divespots"}>
+            <DiveSpotListingPage />
           </Route>
         </Switch>
       )}

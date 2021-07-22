@@ -5,16 +5,50 @@
     width: 70%;
 }
 
-.pptitle{
-    color: linear-gradient(to right, orange , yellow, green, cyan, blue, violet);
-    /* color: white; */
+.pptitleWrapper{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 }
+
+.party_trumpet{
+    height:80px;
+    width:80px;
+}
+
+.left{
+    transform: scaleX(-1);
+}
+
+.pptitle{
+    /* color: linear-gradient(to right, orange , yellow, green, cyan, blue, violet); */
+    font-size: 48px;
+    animation: color-change 7s infinite;
+    text-decoration: underline;
+    text-shadow: 2px 2px 4px black;
+}
+
+@keyframes color-change {
+  0% { color: red; }
+  15% { color: orange; }
+  30% { color: yellow; }
+  45% { color: green; }
+  60% { color: cyan; }
+  75% { color: blue; }
+  100% { color: violet; }
+}
+
 
 .welcome-text{
     margin-left: 30px;
+    padding: 10px;
     border: 3px solid black;
     background: purple;
     border-radius: 5%;
     width: 25%;
     font-size: large;
+}
+
+.welcome-text > div{
+    font-weight: bold;
 }

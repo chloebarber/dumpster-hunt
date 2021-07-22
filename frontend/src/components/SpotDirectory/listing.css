@@ -1,0 +1,34 @@
+/* .spotList{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+} */
+
+h1{
+    align-self: center;
+    text-decoration: underline;
+}
+
+.spotList{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: auto;
+    margin-left: 20px;
+    margin-right: 20px;
+    gap: 5px;
+}
+
+.stateDiv{
+    background-color: burlywood;
+    border: 2px solid black;
+    display: flex;
+    flex-direction: column;
+}
+
+.stateDiv > li{
+    margin-left: 20px;
+}
+
+.stateName{
+    align-self: center;
+}

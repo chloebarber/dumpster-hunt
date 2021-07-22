@@ -39,6 +39,7 @@ router.post( //new Spot
               title: req.body.title,
               discoveredBy: req.body.discoveredBy,
               description: req.body.description,
+              imageUrl: req.body.imageUrl,
             });
           } catch (e) {
             res.redirect("/login"); //god knows why this would error but here's some handling
@@ -51,10 +52,9 @@ router.post( //new Spot
 router.put( //update Spot
     "/:id",
     asyncHandler(async (req, res) => {
-        let spot = await DiveSpot.findByPk(req.params.id);
+        let spot = await DiveSpot.findByPk(req.params.id, {include: [Review, User],});
         spot.update(req.body)
-        let spots = await DiveSpot.findAll()
-        res.json(spots);
+        res.json(spot);
     })
 );
 

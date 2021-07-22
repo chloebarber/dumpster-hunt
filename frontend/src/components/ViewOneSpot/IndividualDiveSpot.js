@@ -1,17 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import * as sessionActions from '../../store/session';
+// import * as sessionActions from '../../store/session';
 import { useDispatch, useSelector } from 'react-redux';
-import { Redirect, useParams, Link } from 'react-router-dom';
-import {getSpot, getAllSpots, cleanupSpot, createSpot, deleteSpot, editSpot} from '../../store/diveSpot.js'
+import { useParams } from 'react-router-dom';
+import {getSpot, deleteSpot, editSpot} from '../../store/diveSpot.js'
 
-import './DiveSpot.css';
+import './individual.css';
 
-function DiveSpotPage(){
+function IndividualDiveSpotPage(){
     
     const {diveId} = useParams();
     const loggedUser = useSelector((state) => state.session.user);
     const selectedSpot = useSelector((state) => state.spots.currSpot);
-    const allSpots = useSelector((state) => state.spots.allSpots);
     
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
@@ -38,10 +37,6 @@ function DiveSpotPage(){
           });
     }
     
-    useEffect(()=>{
-        dispatch(getAllSpots());
-        dispatch(cleanupSpot());
-    },[dispatch])
     
     useEffect(()=>{
         dispatch(getSpot(diveId));
@@ -71,51 +66,46 @@ function DiveSpotPage(){
         }
     }
     
-    if(selectedSpot){
+    if (selectedSpot){
         return (
             <div className="diveSpotWrapper">
-                <h1 className='title'>{selectedSpot.title}</h1>
-                <img src='../images/demo_dumpster.jpg' alt="imagine a dumpster here"/>
-                <div className="discovery">
-                    <span>Discovered by Possum: </span>
-                    <a href='/'>{selectedSpot.User.username}</a>
+                <div className="titleWrapper">
+                    <div className='title'>
+                        <h1>{selectedSpot.title}</h1>
+                        <h2>Address</h2>
+                    </div>
                 </div>
-                {ownerOptions()}
-                <div>{selectedSpot.description}</div>
-                <div className='reviews-div'>
-                    <h1>Reviews</h1>
-                    {writeReview()}
-                    {selectedSpot.Reviews.map((review) => {
-                        return (
-                            <div>
-                                <div>Posted by user #: {review.userId}</div>
-                                <div>{review.content}</div>
+                <div className='wrapperForContentWrapper'>
+                    <div className='contentWrapper'>
+                        <div id='dumpInfo'>
+                            <img src={selectedSpot.imageUrl} alt="imagine a dumpster here"/>
+                            <div className="discovery">
+                                <span>Discovered by Possum: </span>
+                                <a href='/'>{selectedSpot.User.username}</a>
+                                <div>{selectedSpot.description}</div>
+                                {ownerOptions()}
                             </div>
-                        )
-                    })}
+                        </div>
+                        <div className='reviewsdiv'>
+                            <h1>Reviews</h1>
+                            {writeReview()}
+                            {selectedSpot.Reviews.map((review) => {
+                                return (
+                                    <div>
+                                        <div>Posted by user #: {review.userId}</div>
+                                        <div>{review.content}</div>
+                                    </div>
+                                )
+                            })}
+                        </div>
+                    </div>
                 </div>
 
             </div>
-        )
+            )
     }
-    else if (allSpots){
-        return (
-        <div className="diveSpotWrapper">
-            <div className="spotList">
-                <h1>All Spots:</h1>
-                {allSpots.map((spot) => {
-                    return (
-                        <li>
-                        <Link to={`/divespots/${spot.id}`}>{spot.title}</Link>
-                        </li>
-                    )
-                })}
-            </div>
-            <Link to="/divespots/new">Found a new dumpster, and wanna share? Click here!</Link>
-        </div>
-    )}
     else
-        return (<h1>Loading...</h1>)
+        return(<h1>Loading...</h1>)
 }
 
-export default DiveSpotPage;
+export default IndividualDiveSpotPage;
