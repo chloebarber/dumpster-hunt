@@ -8,6 +8,8 @@ import DiveSpotPage from "./components/DiveSpot/DiveSpot"
 import NewDiveSpotPage from "./components/DiveSpot/NewDiveSpot"
 import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
+import IndividualDiveSpotPage from "./components/DiveSpot/IndividualDiveSpot"
+import DiveSpotListingPage from "./components/DiveSpot/DiveSpotListing"
 
 function App() {
   const dispatch = useDispatch();
@@ -33,8 +35,11 @@ function App() {
           <Route path="/divespots/new">
             <NewDiveSpotPage />
           </Route>
-          <Route exact path={["/divespots","/divespots/:diveId"]}>
-            <DiveSpotPage />
+          <Route exact path={"/divespots/:diveId"}>
+            <IndividualDiveSpotPage />
+          </Route>
+          <Route exact path={"/divespots"}>
+            <DiveSpotListingPage />
           </Route>
         </Switch>
       )}

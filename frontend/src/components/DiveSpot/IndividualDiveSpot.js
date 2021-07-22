@@ -6,7 +6,7 @@ import {getSpot, getAllSpots, cleanupSpot, createSpot, deleteSpot, editSpot} fro
 
 import './DiveSpot.css';
 
-function DiveSpotPage(){
+function IndividualDiveSpotPage(){
     
     const {diveId} = useParams();
     const loggedUser = useSelector((state) => state.session.user);
@@ -71,7 +71,7 @@ function DiveSpotPage(){
         }
     }
     
-    if(selectedSpot){
+    if (selectedSpot){
         return (
             <div className="diveSpotWrapper">
                 <h1 className='title'>{selectedSpot.title}</h1>
@@ -96,26 +96,10 @@ function DiveSpotPage(){
                 </div>
 
             </div>
-        )
+            )
     }
-    else if (allSpots){
-        return (
-        <div className="diveSpotWrapper">
-            <div className="spotList">
-                <h1>All Spots:</h1>
-                {allSpots.map((spot) => {
-                    return (
-                        <li>
-                        <Link to={`/divespots/${spot.id}`}>{spot.title}</Link>
-                        </li>
-                    )
-                })}
-            </div>
-            <Link to="/divespots/new">Found a new dumpster, and wanna share? Click here!</Link>
-        </div>
-    )}
     else
-        return (<h1>Loading...</h1>)
+        return(<h1>Loading...</h1>)
 }
 
-export default DiveSpotPage;
+export default IndividualDiveSpotPage;
