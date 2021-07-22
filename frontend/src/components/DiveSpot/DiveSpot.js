@@ -5,6 +5,7 @@ import { Redirect, useParams, Link } from 'react-router-dom';
 import {getSpot, getAllSpots, cleanupSpot, createSpot, deleteSpot, editSpot} from '../../store/diveSpot.js'
 
 import './DiveSpot.css';
+import './listing.css'
 
 function DiveSpotPage(){
     

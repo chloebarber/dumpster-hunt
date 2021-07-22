@@ -39,6 +39,7 @@ router.post( //new Spot
               title: req.body.title,
               discoveredBy: req.body.discoveredBy,
               description: req.body.description,
+              imageUrl: req.body.imageUrl,
             });
           } catch (e) {
             res.redirect("/login"); //god knows why this would error but here's some handling

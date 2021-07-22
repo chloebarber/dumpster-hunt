@@ -5,13 +5,13 @@ import { Redirect, useParams, Link } from 'react-router-dom';
 import {getSpot, getAllSpots, cleanupSpot, createSpot, deleteSpot, editSpot} from '../../store/diveSpot.js'
 
 import './DiveSpot.css';
+import './individual.css';
 
 function IndividualDiveSpotPage(){
     
     const {diveId} = useParams();
     const loggedUser = useSelector((state) => state.session.user);
     const selectedSpot = useSelector((state) => state.spots.currSpot);
-    const allSpots = useSelector((state) => state.spots.allSpots);
     
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
@@ -74,14 +74,19 @@ function IndividualDiveSpotPage(){
     if (selectedSpot){
         return (
             <div className="diveSpotWrapper">
-                <h1 className='title'>{selectedSpot.title}</h1>
-                <img src='../images/demo_dumpster.jpg' alt="imagine a dumpster here"/>
-                <div className="discovery">
-                    <span>Discovered by Possum: </span>
-                    <a href='/'>{selectedSpot.User.username}</a>
+                <div className='title'>
+                    <h1>{selectedSpot.title}</h1>
+                    <h2>Address</h2>
                 </div>
-                {ownerOptions()}
-                <div>{selectedSpot.description}</div>
+                <div id='dumpInfo'>
+                    <img src={selectedSpot.imageUrl} alt="imagine a dumpster here"/>
+                    <div className="discovery">
+                        <span>Discovered by Possum: </span>
+                        <a href='/'>{selectedSpot.User.username}</a>
+                        <div>{selectedSpot.description}</div>
+                        {ownerOptions()}
+                    </div>
+                </div>
                 <div className='reviews-div'>
                     <h1>Reviews</h1>
                     {writeReview()}
