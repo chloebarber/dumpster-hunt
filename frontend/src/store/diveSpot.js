@@ -4,8 +4,8 @@ import { csrfFetch } from './csrf';
 const LOAD_ONE = '/diveSpot/LOAD_ONE';
 const LOAD_ALL = '/diveSpot/LOAD_ALL';
 const CLEANUP = '/diveSpot/CLEANUP';
-const CREATE_SPOT ='/diveSpot/CREATE_ONE';
-const DELETE = '/diveSpot/DELETE';
+// const CREATE_SPOT ='/diveSpot/CREATE_ONE';
+// const DELETE = '/diveSpot/DELETE';
 
 const loadSpot = (spot) => ({
     type: LOAD_ONE,

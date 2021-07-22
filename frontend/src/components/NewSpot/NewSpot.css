@@ -1,0 +1,10 @@
+#newSpotForm{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#newSpotForm > input,
+#newSpotForm > textarea {
+    background: #f1d592;
+}

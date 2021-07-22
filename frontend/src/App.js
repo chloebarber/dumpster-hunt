@@ -7,9 +7,9 @@ import LoginFormPage from "./components/LoginFormPage";
 import SignupFormPage from "./components/SignupFormPage";
 import HomePage from "./components/HomePage/HomePage";
 // import DiveSpotPage from "./components/DiveSpot/DiveSpot"
-import NewDiveSpotPage from "./components/DiveSpot/NewDiveSpot"
-import IndividualDiveSpotPage from "./components/DiveSpot/IndividualDiveSpot"
-import DiveSpotListingPage from "./components/DiveSpot/DiveSpotListing"
+import NewDiveSpotPage from "./components/NewSpot/NewDiveSpot"
+import IndividualDiveSpotPage from "./components/ViewOneSpot/IndividualDiveSpot"
+import DiveSpotListingPage from "./components/SpotDirectory/DiveSpotListing"
 
 function App() {
   const dispatch = useDispatch();

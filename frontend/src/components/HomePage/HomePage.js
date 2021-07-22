@@ -3,7 +3,11 @@ import './HomePage.css';
 function HomePage(){
     return (
         <>
-            <h1 className='pptitle'>Welcome to Possum Party!</h1>
+            <div className='pptitleWrapper'>
+                <img className='party_trumpet left' src='./images/trumpet-right.png' alt="YAY!"/>
+                <h1 className='pptitle'>Welcome to Possum Party!</h1>
+                <img className='party_trumpet right' src='./images/trumpet-right.png' alt="YAY!"/>
+            </div>
             <div className='home-main'>
                 <img src='./images/home_possum2.png' alt="Possum Party Logo"/>
                 <div className='welcome-text'>

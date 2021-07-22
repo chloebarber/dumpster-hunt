@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import {getSpot, deleteSpot, editSpot} from '../../store/diveSpot.js'
 
-import './DiveSpot.css';
 import './individual.css';
 
 function IndividualDiveSpotPage(){

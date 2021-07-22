@@ -1,18 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 // import * as sessionActions from '../../store/session';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams, Link } from 'react-router-dom';
-import {getSpot, getAllSpots, cleanupSpot} from '../../store/diveSpot.js'
+import { Link } from 'react-router-dom';
+import {getAllSpots, cleanupSpot} from '../../store/diveSpot.js'
 
-import './DiveSpot.css';
+import './listing.css';
 
 function DiveSpotListingPage(){
     
-    const {diveId} = useParams();
     // const selectedSpot = useSelector((state) => state.spots.currSpot);
     const allSpots = useSelector((state) => state.spots.allSpots);
     
-    const [errors, setErrors] = useState([]);
+    // const [errors, setErrors] = useState([]);
     
     const dispatch = useDispatch();
 
@@ -22,9 +21,6 @@ function DiveSpotListingPage(){
         dispatch(cleanupSpot());
     },[dispatch])
     
-    useEffect(()=>{
-        dispatch(getSpot(diveId));
-    },[diveId])
     if(allSpots){
         return (
         <div className="diveSpotWrapper">
