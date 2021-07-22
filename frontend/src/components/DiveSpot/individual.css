@@ -1,9 +1,18 @@
 
 #dumpInfo{
-    grid-area: desc;
     display: flex;
     flex-direction: column;
     align-items: center;
+    background-color: #704241;
+    border: 4px outset black;
+    width: 65%;
+    margin-right: 5px;
+    margin-bottom: 20px;
+    height: fit-content;
+}
+
+.discovery{
+    padding: 40px;
 }
 
 #dumpInfo > img{
@@ -17,19 +26,41 @@
 }
 
 .title{
-    grid-area: title;
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 80%;
+    background-color: #704241;
+    border: 4px outset black;
+}
+.titleWrapper{
     margin-top: 20px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: center;
+}
+
+.contentWrapper{
+    display: flex;
+    width: 90%;
+}
+
+.wrapperForContentWrapper{
+    display: flex;
+    justify-content: center;
 }
 
 .reviewsdiv{
     grid-area: review;
-    width: 100%;
+    width: 35%;
     display: flex;
     flex-direction: column;
     align-items: left;
+    background-color: #704241;
+    border: 4px outset black;
+    margin-left: 5px;
+    height: fit-content;
+    margin-bottom: 20px;
 }
 
 .reviewsdiv > div{

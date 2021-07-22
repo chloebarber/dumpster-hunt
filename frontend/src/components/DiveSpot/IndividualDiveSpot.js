@@ -70,30 +70,36 @@ function IndividualDiveSpotPage(){
     if (selectedSpot){
         return (
             <div className="diveSpotWrapper">
-                <div className='title'>
-                    <h1>{selectedSpot.title}</h1>
-                    <h2>Address</h2>
-                </div>
-                <div id='dumpInfo'>
-                    <img src={selectedSpot.imageUrl} alt="imagine a dumpster here"/>
-                    <div className="discovery">
-                        <span>Discovered by Possum: </span>
-                        <a href='/'>{selectedSpot.User.username}</a>
-                        <div>{selectedSpot.description}</div>
-                        {ownerOptions()}
+                <div className="titleWrapper">
+                    <div className='title'>
+                        <h1>{selectedSpot.title}</h1>
+                        <h2>Address</h2>
                     </div>
                 </div>
-                <div className='reviewsdiv'>
-                    <h1>Reviews</h1>
-                    {writeReview()}
-                    {selectedSpot.Reviews.map((review) => {
-                        return (
-                            <div>
-                                <div>Posted by user #: {review.userId}</div>
-                                <div>{review.content}</div>
+                <div className='wrapperForContentWrapper'>
+                    <div className='contentWrapper'>
+                        <div id='dumpInfo'>
+                            <img src={selectedSpot.imageUrl} alt="imagine a dumpster here"/>
+                            <div className="discovery">
+                                <span>Discovered by Possum: </span>
+                                <a href='/'>{selectedSpot.User.username}</a>
+                                <div>{selectedSpot.description}</div>
+                                {ownerOptions()}
                             </div>
-                        )
-                    })}
+                        </div>
+                        <div className='reviewsdiv'>
+                            <h1>Reviews</h1>
+                            {writeReview()}
+                            {selectedSpot.Reviews.map((review) => {
+                                return (
+                                    <div>
+                                        <div>Posted by user #: {review.userId}</div>
+                                        <div>{review.content}</div>
+                                    </div>
+                                )
+                            })}
+                        </div>
+                    </div>
                 </div>
 
             </div>
