@@ -25,8 +25,8 @@ router.put( //review editing
     "/edit/:id",
     asyncHandler(async (req, res) => {
         let review = await Review.findByPk(req.params.id, {include: DiveSpot});
-        review.update(req.body)
-        let spot = await DiveSpot.findByPk(review.diveId)
+        await review.update(req.body)
+        let spot = await DiveSpot.findByPk(review.spotId, {include: [Review, User],})
         res.json(spot);
     })
 );
@@ -35,9 +35,9 @@ router.delete( //review editing
     "/delete/:id",
     asyncHandler(async (req, res) => {
         let review = await Review.findByPk(req.params.id, {include: DiveSpot});
-        const saveId = review.diveId;
-        review.destroy()
-        let spot = await DiveSpot.findByPk(saveId)
+        const saveId = review.spotId;
+        await review.destroy()
+        let spot = await DiveSpot.findByPk(saveId, {include: [Review, User],})
         res.json(spot);
     })
 );
