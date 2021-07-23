@@ -21,7 +21,7 @@ router.post( //review creation
     })
   );
 
-  router.put( //review editing
+router.put( //review editing
     "/edit/:id",
     asyncHandler(async (req, res) => {
         let review = await Review.findByPk(req.params.id, {include: DiveSpot});
@@ -29,6 +29,17 @@ router.post( //review creation
         let spot = await DiveSpot.findByPk(review.diveId)
         res.json(spot);
     })
-  );
+);
+
+router.delete( //review editing
+    "/delete/:id",
+    asyncHandler(async (req, res) => {
+        let review = await Review.findByPk(req.params.id, {include: DiveSpot});
+        const saveId = review.diveId;
+        review.destroy()
+        let spot = await DiveSpot.findByPk(saveId)
+        res.json(spot);
+    })
+);
 
   module.exports = router;

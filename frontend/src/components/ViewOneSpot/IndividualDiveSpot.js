@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 // import * as sessionActions from '../../store/session';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import {getSpot, deleteSpot, editSpot, createReview, editReview} from '../../store/diveSpot.js'
+import {getSpot, deleteSpot, editSpot, createReview, editReview, deleteReview} from '../../store/diveSpot.js'
 
 import './individual.css';
 
@@ -56,6 +56,15 @@ function IndividualDiveSpotPage(){
             if (data && data.errors) setErrors(data.errors);
           });
     }
+
+    function handleDeleteReview(e, reviewId){ //need to figure out how to pass reviewId in here
+        e.preventDefault();
+        return dispatch(deleteReview({spotId: diveId, reviewId: reviewId})) //needed for the PUT here
+          .catch(async (res) => { //backend>routes>api>review.js uses req.body.id for Review.findByPk
+            const data = await res.json();
+            if (data && data.errors) setErrors(data.errors);
+          });
+    }
     
     
     useEffect(()=>{
@@ -98,7 +107,7 @@ function IndividualDiveSpotPage(){
         if(loggedUser && loggedUser.id === review.userId){ //loggedUser.id === selectedSpot.discoveredBy)
             return (
                 <div className="reviewOwnerOptions">
-                    <button onClick={handleDelete}>Delete</button>
+                    <button onClick={(e) => handleDeleteReview(e, review.id)}>Delete</button>
                     <form onSubmit={(e) => handleEditReview(e, review.id)}  id="editReviewForm">
                         <h1>Edit Review:</h1>
                         <textarea id="editedReview" name='editedReview' onChange={(e) => setEditedReview(e.target.value)}/>

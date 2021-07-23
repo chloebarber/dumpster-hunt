@@ -88,6 +88,16 @@ export const editReview = (newReview) => async (dispatch) => {
     alert("Review Edited Successfully!"); 
 }
 
+export const deleteReview = (content) => async (dispatch) => {
+    const {spotId, reviewId} = content;
+	const response = await csrfFetch(`/api/review/delete/${reviewId}`,{
+        method: "DELETE",
+      });
+    const spot = await response.json();
+    dispatch(cleanupSpot(spotId));
+    await dispatch(loadSpot(spot));
+    alert("Review Deleted Successfully!"); 
+}
 
 export const deleteSpot = (spotId) => async (dispatch) => {
 	const response = await csrfFetch(`/api/diveSpots/${spotId}`,{
