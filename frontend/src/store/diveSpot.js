@@ -35,7 +35,6 @@ export const getAllSpots = () => async (dispatch) => {
 
 	if (response.ok) {
 		const spots = await response.json();
-        console.log(spots);
 		dispatch(loadAll(spots));
 	}
 };
@@ -58,6 +57,47 @@ export const createSpot = (newSpot) => async (dispatch) => {
         window.location.replace("/divespots");
 	}
 };
+
+export const createReview = (newReview) => async (dispatch) => {
+    const {content, spotId, userId} = newReview;
+	const response = await csrfFetch(`/api/review/new`,{
+        method: "POST",
+        body: JSON.stringify({
+            content,
+            userId,
+            spotId,
+        }),
+      });
+    const spot = await response.json();
+    dispatch(cleanupSpot(spotId));
+    await dispatch(loadSpot(spot));
+    alert("Review Posted Successfully!"); 
+}
+
+export const editReview = (newReview) => async (dispatch) => {
+    const {content, spotId, reviewId} = newReview;
+	const response = await csrfFetch(`/api/review/edit/${reviewId}`,{
+        method: "PUT",
+        body: JSON.stringify({
+            content,
+        }),
+      });
+    const spot = await response.json();
+    dispatch(cleanupSpot(spotId));
+    await dispatch(loadSpot(spot));
+    alert("Review Edited Successfully!"); 
+}
+
+export const deleteReview = (content) => async (dispatch) => {
+    const {spotId, reviewId} = content;
+	const response = await csrfFetch(`/api/review/delete/${reviewId}`,{
+        method: "DELETE",
+      });
+    const spot = await response.json();
+    dispatch(cleanupSpot(spotId));
+    await dispatch(loadSpot(spot));
+    alert("Review Deleted Successfully!"); 
+}
 
 export const deleteSpot = (spotId) => async (dispatch) => {
 	const response = await csrfFetch(`/api/diveSpots/${spotId}`,{

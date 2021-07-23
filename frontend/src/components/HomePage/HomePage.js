@@ -9,7 +9,7 @@ function HomePage(){
                 <img className='party_trumpet right' src='./images/trumpet-right.png' alt="YAY!"/>
             </div>
             <div className='home-main'>
-                <img src='./images/home_possum2.png' alt="Possum Party Logo"/>
+                <img id="welcomePossum" src='./images/home_possum2.png' alt="Possum Party Logo"/>
                 <div className='welcome-text'>
                     <div>Tired of corporate food waste?</div>
                     <div>Want to save on your bills?</div>

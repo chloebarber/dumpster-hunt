@@ -58,23 +58,6 @@ router.put( //update Spot
     })
 );
 
-router.post( //review creation
-    "/:id",
-    asyncHandler(async (req, res) => {
-      try {
-        await Review.create({
-          spotId: req.params.id,
-          userId: 1,
-          //userId: req.session.auth.id,
-          content: req.body.content,
-        });
-      } catch (e) {
-        res.redirect("/login"); //god knows why this would error but here's some handling
-      }
-  
-      res.redirect(`/diveSpots/${req.params.id}`);
-    })
-  );
 
 router.delete( //delete Spot
     "/:id",
