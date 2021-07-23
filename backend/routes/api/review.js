@@ -22,11 +22,12 @@ router.post( //review creation
   );
 
   router.put( //review editing
-    "/edit",
+    "/edit/:id",
     asyncHandler(async (req, res) => {
-        let review = await Review.findByPk(req.body.id, {include: DiveSpot});
+        let review = await Review.findByPk(req.params.id, {include: DiveSpot});
         review.update(req.body)
-        res.json(review.DiveSpot);
+        let spot = await DiveSpot.findByPk(review.diveId)
+        res.json(spot);
     })
   );
 

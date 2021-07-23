@@ -48,9 +48,9 @@ function IndividualDiveSpotPage(){
           });
     }
 
-    function handleEditReview(e){ //need to figure out how to pass reviewId in here
+    function handleEditReview(e, reviewId){ //need to figure out how to pass reviewId in here
         e.preventDefault();
-        return dispatch(editReview({content: editedReview, spotId: diveId,})) //needed for the PUT here
+        return dispatch(editReview({content: editedReview, spotId: diveId, reviewId})) //needed for the PUT here
           .catch(async (res) => { //backend>routes>api>review.js uses req.body.id for Review.findByPk
             const data = await res.json();
             if (data && data.errors) setErrors(data.errors);
@@ -99,7 +99,7 @@ function IndividualDiveSpotPage(){
             return (
                 <div className="reviewOwnerOptions">
                     <button onClick={handleDelete}>Delete</button>
-                    <form onSubmit={handleEditReview}  id="editReviewForm">
+                    <form onSubmit={(e) => handleEditReview(e, review.id)}  id="editReviewForm">
                         <h1>Edit Review:</h1>
                         <textarea id="editedReview" name='editedReview' onChange={(e) => setEditedReview(e.target.value)}/>
                         <button type='submit' id="submitEditButton">Finalize Edits</button>
