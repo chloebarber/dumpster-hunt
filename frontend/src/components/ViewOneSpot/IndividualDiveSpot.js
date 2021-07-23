@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 // import * as sessionActions from '../../store/session';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import {getSpot, deleteSpot, editSpot} from '../../store/diveSpot.js'
+import {getSpot, deleteSpot, editSpot, createReview, editReview} from '../../store/diveSpot.js'
 
 import './individual.css';
 
@@ -14,6 +14,8 @@ function IndividualDiveSpotPage(){
     
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
+    const [newReview, setNewReview] = useState("");
+    const [editedReview, setEditedReview] = useState("");
     const [errors, setErrors] = useState([]);
     
     const dispatch = useDispatch();
@@ -32,6 +34,24 @@ function IndividualDiveSpotPage(){
         e.preventDefault();
         return dispatch(editSpot(diveId, {title, description,}))
           .catch(async (res) => {
+            const data = await res.json();
+            if (data && data.errors) setErrors(data.errors);
+          });
+    }
+
+    function handleNewReview(e){
+        e.preventDefault();
+        return dispatch(createReview({content: newReview, spotId: diveId, userId: loggedUser.id,}))
+          .catch(async (res) => {
+            const data = await res.json();
+            if (data && data.errors) setErrors(data.errors);
+          });
+    }
+
+    function handleEditReview(e){ //need to figure out how to pass reviewId in here
+        e.preventDefault();
+        return dispatch(editReview({content: editedReview, spotId: diveId,})) //needed for the PUT here
+          .catch(async (res) => { //backend>routes>api>review.js uses req.body.id for Review.findByPk
             const data = await res.json();
             if (data && data.errors) setErrors(data.errors);
           });
@@ -60,9 +80,32 @@ function IndividualDiveSpotPage(){
             )
         }
     }
+    
     function writeReview(){
         if(loggedUser){
-            return (<h2>Write a review!</h2>)
+            return (
+            <div className="reviewWrapper">
+                <h2>Write a review!</h2>
+                <form onSubmit={handleNewReview}  id="newReviewForm">
+                    <textarea id="newReview" name='newReview' onChange={(e) => setNewReview(e.target.value)}/>
+                    <button type='submit' id="submitReviewButton">Post New Review</button>
+                </form>
+            </div>)
+        }
+    }
+
+    function reviewOwnerOptions(review){
+        if(loggedUser && loggedUser.id === review.userId){ //loggedUser.id === selectedSpot.discoveredBy)
+            return (
+                <div className="reviewOwnerOptions">
+                    <button onClick={handleDelete}>Delete</button>
+                    <form onSubmit={handleEditReview}  id="editReviewForm">
+                        <h1>Edit Review:</h1>
+                        <textarea id="editedReview" name='editedReview' onChange={(e) => setEditedReview(e.target.value)}/>
+                        <button type='submit' id="submitEditButton">Finalize Edits</button>
+                    </form>
+                </div>
+            )
         }
     }
     
@@ -94,6 +137,7 @@ function IndividualDiveSpotPage(){
                                     <div>
                                         <div>Posted by user #: {review.userId}</div>
                                         <div>{review.content}</div>
+                                        {reviewOwnerOptions(review)}
                                     </div>
                                 )
                             })}
