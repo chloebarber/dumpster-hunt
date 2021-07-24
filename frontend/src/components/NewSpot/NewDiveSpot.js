@@ -29,7 +29,7 @@ function NewDiveSpotPage(){
       }
     if(loggedUser){
         return (
-            <div className="diveSpotWrapper">
+            <div className="newSpotWrapper">
                 <form onSubmit={handleSubmit}  id="newSpotForm">
                     <h1>New Spot:</h1>
                     <span>Title</span>
@@ -45,7 +45,7 @@ function NewDiveSpotPage(){
     }
     else{
         return (
-            <div className="diveSpotWrapper">
+            <div className="newSpotWrapper">
                 <div className="redirectWrapper">
                     <h1>While I appreciate your enthusiasm,</h1>
                     <h2>you'll need to log in to post a new Spot</h2>
