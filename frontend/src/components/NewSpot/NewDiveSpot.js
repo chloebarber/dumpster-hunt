@@ -46,10 +46,12 @@ function NewDiveSpotPage(){
     else{
         return (
             <div className="diveSpotWrapper">
-                <h1>While I appreciate your enthusiasm,</h1>
-                <h2>you'll need to log in to post a new Spot</h2>
-                <div>
-                <Link to="/login">Log In</Link><span> or </span> <Link to="/signup">Sign Up</Link><span> here!</span>
+                <div className="redirectWrapper">
+                    <h1>While I appreciate your enthusiasm,</h1>
+                    <h2>you'll need to log in to post a new Spot</h2>
+                    <div>
+                    <Link to="/login">Log In</Link><span> or </span> <Link to="/signup">Sign Up</Link><span> here!</span>
+                    </div>
                 </div>
             </div>
         )

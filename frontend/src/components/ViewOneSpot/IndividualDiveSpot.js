@@ -73,18 +73,20 @@ function IndividualDiveSpotPage(){
     function ownerOptions(){
         if(loggedUser && loggedUser.id === selectedSpot.discoveredBy){ //loggedUser.id === selectedSpot.discoveredBy)
             return (
+                <>
+                <button>Spot Owner Options</button>
                 <div className="useroptions">
-                <h1>User Options</h1>
-                <button onClick={handleDelete}>Delete Spot</button>
-                <form onSubmit={handleEdit}  id="editSpotForm">
-                    <h1>Edit Spot:</h1>
-                    <span>Title</span>
-                    <input id="title" name="title" onChange={(e) => setTitle(e.target.value)}></input>
-                    <span>Description</span>
-                    <textarea id="description" name='description' onChange={(e) => setDescription(e.target.value)}/>
-                    <button type='submit' id="submitbutton">Finalize Edits</button>
-                </form>
+                    <form onSubmit={handleEdit}  id="editSpotForm" >
+                        <h1>Edit Spot:</h1>
+                        <span>Title</span>
+                        <input id="title" name="title" onChange={(e) => setTitle(e.target.value)}></input>
+                        <span>Description</span>
+                        <textarea id="description" name='description' onChange={(e) => setDescription(e.target.value)}/>
+                        <button type='submit' id="submitbutton">Finalize Edits</button>
+                    </form>
+                    <button id="deleteSpotButton" onClick={handleDelete}>Delete Spot</button>
                 </div>
+                </>
             )
         }
     }
@@ -116,14 +118,14 @@ function IndividualDiveSpotPage(){
             )
         }
     }
-    
     if (selectedSpot){
+        const discoveryDate = new Date(Date.parse(selectedSpot.updatedAt))
         return (
             <div className="diveSpotWrapper">
                 <div className="titleWrapper">
                     <div className='title'>
-                        <h1>{selectedSpot.title}</h1>
-                        <h2>Address</h2>
+                        <h1 id="title">{selectedSpot.title}</h1>
+                        <h2 id="address">{selectedSpot.address}</h2>
                     </div>
                 </div>
                 <div className='wrapperForContentWrapper'>
@@ -131,19 +133,27 @@ function IndividualDiveSpotPage(){
                         <div id='dumpInfo'>
                             <img src={selectedSpot.imageUrl} alt="imagine a dumpster here"/>
                             <div className="discovery">
-                                <span>Discovered by Possum: </span>
-                                <a href='/'>{selectedSpot.User.username}</a>
+                                <div className="discoveredBy">
+                                    <span>Discovered by Possum: </span>
+                                    <a href='/'>{selectedSpot.User.username}</a>
+                                    <div>on {discoveryDate.toDateString()}</div>
+                                </div>
                                 <div>{selectedSpot.description}</div>
                                 {ownerOptions()}
                             </div>
                         </div>
                         <div className='reviewsdiv'>
-                            <h1>Reviews</h1>
+                            <h1 id="masterReviewsHeader">Reviews</h1>
                             {writeReview()}
                             {selectedSpot.Reviews.map((review) => {
+                                const displayDate = new Date(Date.parse(review.updatedAt))
                                 return (
-                                    <div>
-                                        <div>Posted by user #: {review.userId}</div>
+                                    <div className="reviewInfo">
+                                        <div className="reviewHeader">
+                                            <span>Posted by user #: {review.userId}</span>
+                                            <span>  ---  </span>
+                                            <span>{displayDate.toDateString()}</span>
+                                        </div>
                                         <div>{review.content}</div>
                                         {reviewOwnerOptions(review)}
                                     </div>

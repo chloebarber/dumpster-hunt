@@ -3,6 +3,7 @@ module.exports = (sequelize, DataTypes) => {
   const DiveSpot = sequelize.define('DiveSpot', {
     discoveredBy: DataTypes.INTEGER,
     title: DataTypes.STRING,
+    address: DataTypes.STRING,
     status: DataTypes.STRING,
     imageUrl: DataTypes.STRING,
     description: DataTypes.TEXT

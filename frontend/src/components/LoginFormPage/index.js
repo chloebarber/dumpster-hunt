@@ -25,7 +25,12 @@ function LoginFormPage() {
       });
   }
 
+  function demoLogin(){
+    return dispatch(sessionActions.login({ credential: 'demo@demo.com', password: 'demoUserPassword' }))
+  }
+
   return (
+    <>
     <form onSubmit={handleSubmit} className="login-form">
       <ul>
         {errors.map((error, idx) => <li key={idx}>{error}</li>)}
@@ -50,6 +55,8 @@ function LoginFormPage() {
       </label>
       <button type="submit">Log In</button>
     </form>
+      <button onClick={demoLogin}>Demo User Log In</button>
+    </>
   );
 }
 

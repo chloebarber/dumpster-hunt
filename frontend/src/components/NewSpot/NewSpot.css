@@ -8,3 +8,27 @@
 #newSpotForm > textarea {
     background: #f1d592;
 }
+
+.diveSpotWrapper{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #704241;
+    border: 4px outset black;
+    width: 65%;
+    margin-right: 5px;
+    margin-bottom: 20px;
+    height: 80%;
+}
+
+.diveSpotWrapper > div{
+    background-color: burlywood;
+    display: flex;
+    color: black;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    border: 4px outset black;
+}
