@@ -40,11 +40,12 @@ export const getAllSpots = () => async (dispatch) => {
 };
 
 export const createSpot = (newSpot) => async (dispatch) => {
-    const { title, description, discoveredBy, imageUrl } = newSpot;
+    const { title, address, description, discoveredBy, imageUrl } = newSpot;
 	const response = await csrfFetch(`/api/diveSpots`,{
         method: "POST",
         body: JSON.stringify({
             title,
+            address,
             description,
             discoveredBy,
             imageUrl,

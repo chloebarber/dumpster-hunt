@@ -135,7 +135,7 @@ function IndividualDiveSpotPage(){
                             <div className="discovery">
                                 <div className="discoveredBy">
                                     <span>Discovered by Possum: </span>
-                                    <a href='/'>{selectedSpot.User.username}</a>
+                                    <span>{selectedSpot.User.username}</span>
                                     <div>on {discoveryDate.toDateString()}</div>
                                 </div>
                                 <div>{selectedSpot.description}</div>

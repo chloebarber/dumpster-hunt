@@ -1,0 +1,30 @@
+.signupForm{
+    margin-top: 80px;
+    min-height: 120px;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-items: space-between;
+    border: 5px inset black;
+    background-color: rgba(214,206,200,255);
+}
+
+.signupForm > *{
+    margin-bottom: 10px;
+    text-decoration: underline;
+}
+
+.signupForm > h1{
+    animation: color-change 7s infinite;
+}
+
+@keyframes color-change {
+    0% { color: red; }
+    15% { color: orange; }
+    30% { color: yellow; }
+    45% { color: green; }
+    60% { color: cyan; }
+    75% { color: blue; }
+    100% { color: violet; }
+  }

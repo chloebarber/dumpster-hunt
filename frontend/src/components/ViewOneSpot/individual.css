@@ -148,3 +148,7 @@
     border: 3px outset black;
     background-color: rgb(123, 121, 121);
 }
+
+#masterReviewsHeader{
+    color: black;
+}

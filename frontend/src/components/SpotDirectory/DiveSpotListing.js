@@ -107,17 +107,17 @@ function DiveSpotListingPage(){
     if(allSpots){
         return (
         <div className="diveSpotWrapper">
-                <h1>All Spots:</h1>
-            <div className="spotList">
-                {allSpots.map((spot) => {
-                    return (
-                        <li>
-                        <Link to={`/divespots/${spot.id}`}>{spot.title}</Link>
-                        </li>
-                    )
-                })}
+            <div className="spotListWrapper">
+                <h1 id="allSpotsHeader">All Spots:</h1>
+                <div className="spotList">
+                    {allSpots.map((spot) => {
+                        return (
+                            <Link className= "spotListingLink" to={`/divespots/${spot.id}`}>{spot.title}</Link>
+                        )
+                    })}
+                </div>
+                <Link id="newSpotLink" to="/divespots/new">Found a new dumpster, and wanna share? Click here!</Link>
             </div>
-            <Link to="/divespots/new">Found a new dumpster, and wanna share? Click here!</Link>
         </div>
         )
     }

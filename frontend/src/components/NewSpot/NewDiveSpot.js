@@ -13,6 +13,7 @@ function NewDiveSpotPage(){
     const [errors, setErrors] = useState([]);
 
     const [title, setTitle] = useState("");
+    const [address, setAddress] = useState("");
     const [description, setDescription] = useState("");
     const [imageUrl, setImageUrl] = useState("");
     
@@ -21,7 +22,7 @@ function NewDiveSpotPage(){
     const handleSubmit = (e) => {
         e.preventDefault();
         setErrors([]);
-        return dispatch(createSpot({title, description, imageUrl, discoveredBy: loggedUser.id,}))
+        return dispatch(createSpot({title, description, address, imageUrl, discoveredBy: loggedUser.id,}))
           .catch(async (res) => {
             const data = await res.json();
             if (data && data.errors) setErrors(data.errors);
@@ -34,6 +35,8 @@ function NewDiveSpotPage(){
                     <h1>New Spot:</h1>
                     <span>Title</span>
                     <input id="title" name="title" onChange={(e) => setTitle(e.target.value)}></input>
+                    <span>Address</span>
+                    <input id="address" name="address" onChange={(e) => setAddress(e.target.value)}></input>
                     <span>Description</span>
                     <textarea id="description" name='description' onChange={(e) => setDescription(e.target.value)}/>
                     <span>Image URL</span>

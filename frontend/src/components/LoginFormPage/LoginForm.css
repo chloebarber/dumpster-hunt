@@ -1,12 +1,36 @@
 .login-form{
     margin-top: 80px;
-    width: 70%;
     min-height: 120px;
+    padding: 40px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    color: white;
-    border: 5px solid black;
+    justify-items: space-between;
+    border: 5px inset black;
+    background-color: rgba(214,206,200,255);
 }
 
+.login-form > *{
+    margin-bottom: 10px;
+    text-decoration: underline;
+}
+
+.login-form > h1{
+    animation: color-change 7s infinite;
+}
+
+#demoUserButton{
+    margin-top: 20px;
+    padding: 20px;
+    background-color: cadetblue;
+}
+
+@keyframes color-change {
+    0% { color: red; }
+    15% { color: orange; }
+    30% { color: yellow; }
+    45% { color: green; }
+    60% { color: cyan; }
+    75% { color: blue; }
+    100% { color: violet; }
+  }

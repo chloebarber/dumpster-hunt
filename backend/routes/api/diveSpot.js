@@ -38,6 +38,7 @@ router.post( //new Spot
             await DiveSpot.create({
               title: req.body.title,
               discoveredBy: req.body.discoveredBy,
+              address: req.body.address,
               description: req.body.description,
               imageUrl: req.body.imageUrl,
             });
