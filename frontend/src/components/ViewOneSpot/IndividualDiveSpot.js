@@ -20,6 +20,10 @@ function IndividualDiveSpotPage(){
     
     const dispatch = useDispatch();
 
+    useEffect(()=>{
+        dispatch(getSpot(diveId));
+    },[diveId])
+
 
     function handleDelete(e){
         e.preventDefault();
@@ -66,11 +70,6 @@ function IndividualDiveSpotPage(){
           });
     }
     
-    
-    useEffect(()=>{
-        dispatch(getSpot(diveId));
-    },[diveId])
-    
     function ownerOptions(){
         if(loggedUser && loggedUser.id === selectedSpot.discoveredBy){ //loggedUser.id === selectedSpot.discoveredBy)
             return (
@@ -93,9 +92,9 @@ function IndividualDiveSpotPage(){
     function writeReview(){
         if(loggedUser){
             return (
-            <div className="reviewWrapper">
-                <h2>Write a review!</h2>
+            <div id="reviewWrapper">
                 <form onSubmit={handleNewReview}  id="newReviewForm">
+                    <h2>Write a review!</h2>
                     <textarea id="newReview" name='newReview' onChange={(e) => setNewReview(e.target.value)}/>
                     <button type='submit' id="submitReviewButton">Post New Review</button>
                 </form>
@@ -107,12 +106,12 @@ function IndividualDiveSpotPage(){
         if(loggedUser && loggedUser.id === review.userId){ //loggedUser.id === selectedSpot.discoveredBy)
             return (
                 <div className="reviewOwnerOptions">
-                    <button onClick={(e) => handleDeleteReview(e, review.id)}>Delete</button>
                     <form onSubmit={(e) => handleEditReview(e, review.id)}  id="editReviewForm">
-                        <h1>Edit Review:</h1>
+                        <label for="editedReview">Edit Review:</label>
                         <textarea id="editedReview" name='editedReview' onChange={(e) => setEditedReview(e.target.value)}/>
                         <button type='submit' id="submitEditButton">Finalize Edits</button>
                     </form>
+                    <button id="deleteReviewButton" onClick={(e) => handleDeleteReview(e, review.id)}>Delete</button>
                 </div>
             )
         }
