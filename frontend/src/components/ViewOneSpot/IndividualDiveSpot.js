@@ -14,6 +14,7 @@ function IndividualDiveSpotPage(){
     
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
+    const [imageUrl, setimageUrl] = useState("");
     const [newReview, setNewReview] = useState("");
     const [editedReview, setEditedReview] = useState("");
     const [errors, setErrors] = useState([]);
@@ -36,7 +37,7 @@ function IndividualDiveSpotPage(){
 
     function handleEdit(e){
         e.preventDefault();
-        return dispatch(editSpot(diveId, {title, description,}))
+        return dispatch(editSpot(diveId, {title, description, imageUrl}))
           .catch(async (res) => {
             const data = await res.json();
             if (data && data.errors) setErrors(data.errors);
@@ -74,7 +75,6 @@ function IndividualDiveSpotPage(){
         if(loggedUser && loggedUser.id === selectedSpot.discoveredBy){ //loggedUser.id === selectedSpot.discoveredBy)
             return (
                 <>
-                <button>Spot Owner Options</button>
                 <div className="useroptions">
                     <form onSubmit={handleEdit}  id="editSpotForm" >
                         <h1>Edit Spot:</h1>
@@ -82,6 +82,8 @@ function IndividualDiveSpotPage(){
                         <input id="title" name="title" onChange={(e) => setTitle(e.target.value)}></input>
                         <span>Description</span>
                         <textarea id="description" name='description' onChange={(e) => setDescription(e.target.value)}/>
+                        <span>New Image URL</span>
+                        <input id="imageUrl" name="imageUrl" onChange={(e) => setimageUrl(e.target.value)}></input>
                         <button type='submit' id="submitbutton">Finalize Edits</button>
                     </form>
                     <button id="deleteSpotButton" onClick={handleDelete}>Delete Spot</button>
@@ -124,7 +126,7 @@ function IndividualDiveSpotPage(){
             <div className="diveSpotWrapper">
                 <div className="titleWrapper">
                     <div className='title'>
-                        <h1 id="title">{selectedSpot.title}</h1>
+                        <h1 id="individualIitle">{selectedSpot.title}</h1>
                         <h2 id="address">{selectedSpot.address}</h2>
                     </div>
                 </div>

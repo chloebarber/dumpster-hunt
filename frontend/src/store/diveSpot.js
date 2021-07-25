@@ -112,12 +112,13 @@ export const deleteSpot = (spotId) => async (dispatch) => {
 };
 
 export const editSpot = (spotId, updatedData) => async (dispatch) => {
-    const { title, description } = updatedData;
+    const { title, description, imageUrl } = updatedData;
 	const response = await csrfFetch(`/api/diveSpots/${spotId}`,{
         method: "PUT",
         body: JSON.stringify({
             title,
             description,
+            imageUrl,
         }),
       });
     const spot = await response.json();

@@ -30,9 +30,10 @@ function NewDiveSpotPage(){
       }
     if(loggedUser){
         return (
-            <div className="newSpotWrapper">
+            <div className="diveSpotWrapper">
+                <div className="newSpotWrapper">
+                    <h1>New Spot</h1>
                 <form onSubmit={handleSubmit}  id="newSpotForm">
-                    <h1>New Spot:</h1>
                     <span>Title</span>
                     <input id="title" name="title" onChange={(e) => setTitle(e.target.value)}></input>
                     <span>Address</span>
@@ -43,11 +44,13 @@ function NewDiveSpotPage(){
                     <input id="imageUrl" name='imageUrl' onChange={(e) => setImageUrl(e.target.value)}/>
                     <button type='submit' id="submitbutton">Create New DiveSpot</button>
                 </form>
+                </div>
             </div>
         )
     }
     else{
         return (
+            <div className="diveSpotWrapper">
             <div className="newSpotWrapper">
                 <div className="redirectWrapper">
                     <h1>While I appreciate your enthusiasm,</h1>
@@ -56,6 +59,7 @@ function NewDiveSpotPage(){
                     <Link to="/login">Log In</Link><span> or </span> <Link to="/signup">Sign Up</Link><span> here!</span>
                     </div>
                 </div>
+            </div>
             </div>
         )
     }
