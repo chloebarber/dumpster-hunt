@@ -8,3 +8,25 @@
 #newSpotForm > textarea {
     background: #f1d592;
 }
+
+.newSpotWrapper{
+    align-self: center;
+    justify-self: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-items: space-between;
+    background-color: rgba(214,206,200,255);
+    border: 5px inset black;
+    margin-top: 80px;
+    min-height: 120px;
+    width: 60%;
+    padding: 40px;
+    color: black;
+    text-decoration: underline;
+}
+
+
+.newSpotWrapper > *, .newSpotWrapper > * > *{
+    margin: 10px;
+}

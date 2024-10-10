@@ -14,11 +14,16 @@ function IndividualDiveSpotPage(){
     
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
+    const [imageUrl, setimageUrl] = useState("");
     const [newReview, setNewReview] = useState("");
     const [editedReview, setEditedReview] = useState("");
     const [errors, setErrors] = useState([]);
     
     const dispatch = useDispatch();
+
+    useEffect(()=>{
+        dispatch(getSpot(diveId));
+    },[diveId])
 
 
     function handleDelete(e){
@@ -32,7 +37,7 @@ function IndividualDiveSpotPage(){
 
     function handleEdit(e){
         e.preventDefault();
-        return dispatch(editSpot(diveId, {title, description,}))
+        return dispatch(editSpot(diveId, {title, description, imageUrl}))
           .catch(async (res) => {
             const data = await res.json();
             if (data && data.errors) setErrors(data.errors);
@@ -66,26 +71,24 @@ function IndividualDiveSpotPage(){
           });
     }
     
-    
-    useEffect(()=>{
-        dispatch(getSpot(diveId));
-    },[diveId])
-    
     function ownerOptions(){
         if(loggedUser && loggedUser.id === selectedSpot.discoveredBy){ //loggedUser.id === selectedSpot.discoveredBy)
             return (
+                <>
                 <div className="useroptions">
-                <h1>User Options</h1>
-                <button onClick={handleDelete}>Delete Spot</button>
-                <form onSubmit={handleEdit}  id="editSpotForm">
-                    <h1>Edit Spot:</h1>
-                    <span>Title</span>
-                    <input id="title" name="title" onChange={(e) => setTitle(e.target.value)}></input>
-                    <span>Description</span>
-                    <textarea id="description" name='description' onChange={(e) => setDescription(e.target.value)}/>
-                    <button type='submit' id="submitbutton">Finalize Edits</button>
-                </form>
+                    <form onSubmit={handleEdit}  id="editSpotForm" >
+                        <h1>Edit Spot:</h1>
+                        <span>Title</span>
+                        <input id="title" name="title" onChange={(e) => setTitle(e.target.value)}></input>
+                        <span>Description</span>
+                        <textarea id="description" name='description' onChange={(e) => setDescription(e.target.value)}/>
+                        <span>New Image URL</span>
+                        <input id="imageUrl" name="imageUrl" onChange={(e) => setimageUrl(e.target.value)}></input>
+                        <button type='submit' id="submitbutton">Finalize Edits</button>
+                    </form>
+                    <button id="deleteSpotButton" onClick={handleDelete}>Delete Spot</button>
                 </div>
+                </>
             )
         }
     }
@@ -93,9 +96,9 @@ function IndividualDiveSpotPage(){
     function writeReview(){
         if(loggedUser){
             return (
-            <div className="reviewWrapper">
-                <h2>Write a review!</h2>
+            <div id="reviewWrapper">
                 <form onSubmit={handleNewReview}  id="newReviewForm">
+                    <h2>Write a review!</h2>
                     <textarea id="newReview" name='newReview' onChange={(e) => setNewReview(e.target.value)}/>
                     <button type='submit' id="submitReviewButton">Post New Review</button>
                 </form>
@@ -107,24 +110,24 @@ function IndividualDiveSpotPage(){
         if(loggedUser && loggedUser.id === review.userId){ //loggedUser.id === selectedSpot.discoveredBy)
             return (
                 <div className="reviewOwnerOptions">
-                    <button onClick={(e) => handleDeleteReview(e, review.id)}>Delete</button>
                     <form onSubmit={(e) => handleEditReview(e, review.id)}  id="editReviewForm">
-                        <h1>Edit Review:</h1>
+                        <label for="editedReview">Edit Review:</label>
                         <textarea id="editedReview" name='editedReview' onChange={(e) => setEditedReview(e.target.value)}/>
                         <button type='submit' id="submitEditButton">Finalize Edits</button>
                     </form>
+                    <button id="deleteReviewButton" onClick={(e) => handleDeleteReview(e, review.id)}>Delete</button>
                 </div>
             )
         }
     }
-    
     if (selectedSpot){
+        const discoveryDate = new Date(Date.parse(selectedSpot.updatedAt))
         return (
             <div className="diveSpotWrapper">
                 <div className="titleWrapper">
                     <div className='title'>
-                        <h1>{selectedSpot.title}</h1>
-                        <h2>Address</h2>
+                        <h1 id="individualIitle">{selectedSpot.title}</h1>
+                        <h2 id="address">{selectedSpot.address}</h2>
                     </div>
                 </div>
                 <div className='wrapperForContentWrapper'>
@@ -132,19 +135,27 @@ function IndividualDiveSpotPage(){
                         <div id='dumpInfo'>
                             <img src={selectedSpot.imageUrl} alt="imagine a dumpster here"/>
                             <div className="discovery">
-                                <span>Discovered by Possum: </span>
-                                <a href='/'>{selectedSpot.User.username}</a>
+                                <div className="discoveredBy">
+                                    <span>Discovered by Possum: </span>
+                                    <span>{selectedSpot.User.username}</span>
+                                    <div>on {discoveryDate.toDateString()}</div>
+                                </div>
                                 <div>{selectedSpot.description}</div>
                                 {ownerOptions()}
                             </div>
                         </div>
                         <div className='reviewsdiv'>
-                            <h1>Reviews</h1>
+                            <h1 id="masterReviewsHeader">Reviews</h1>
                             {writeReview()}
                             {selectedSpot.Reviews.map((review) => {
+                                const displayDate = new Date(Date.parse(review.updatedAt))
                                 return (
-                                    <div>
-                                        <div>Posted by user #: {review.userId}</div>
+                                    <div className="reviewInfo">
+                                        <div className="reviewHeader">
+                                            <span>Posted by user #: {review.userId}</span>
+                                            <span>  ---  </span>
+                                            <span>{displayDate.toDateString()}</span>
+                                        </div>
                                         <div>{review.content}</div>
                                         {reviewOwnerOptions(review)}
                                     </div>

@@ -1,13 +1,43 @@
-/* .spotList{
+
+.spotListWrapper{
     display: flex;
     flex-direction: column;
     align-items: center;
-} */
+    width: 100%;
+}
+
+.spotListingLink{
+    text-decoration: none;
+    padding: 10px;
+    background-color: #704241;
+    border: 4px outset black;
+    color: black;
+    font-weight: bold;
+    text-align: center;
+}
+
+.spotListingLink:hover{
+    background-color: burlywood;
+}
 
 h1{
     align-self: center;
     text-decoration: underline;
 }
+
+#allSpotsHeader{
+    animation: color-change 7s infinite;
+}
+
+@keyframes color-change {
+    0% { color: red; }
+    15% { color: orange; }
+    30% { color: yellow; }
+    45% { color: green; }
+    60% { color: cyan; }
+    75% { color: blue; }
+    100% { color: violet; }
+  }
 
 .spotList{
     display: grid;
@@ -31,4 +61,17 @@ h1{
 
 .stateName{
     align-self: center;
+}
+
+#newSpotLink{
+    margin-top: 40px;
+    padding: 20px;
+    border: 4px outset black;
+    color: black;
+    text-decoration: none;
+    background-color: green;
+}
+
+#newSpotLink:hover{
+    background-color: lightgreen;
 }

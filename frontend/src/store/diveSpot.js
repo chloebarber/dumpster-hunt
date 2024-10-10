@@ -40,11 +40,12 @@ export const getAllSpots = () => async (dispatch) => {
 };
 
 export const createSpot = (newSpot) => async (dispatch) => {
-    const { title, description, discoveredBy, imageUrl } = newSpot;
+    const { title, address, description, discoveredBy, imageUrl } = newSpot;
 	const response = await csrfFetch(`/api/diveSpots`,{
         method: "POST",
         body: JSON.stringify({
             title,
+            address,
             description,
             discoveredBy,
             imageUrl,
@@ -111,12 +112,13 @@ export const deleteSpot = (spotId) => async (dispatch) => {
 };
 
 export const editSpot = (spotId, updatedData) => async (dispatch) => {
-    const { title, description } = updatedData;
+    const { title, description, imageUrl } = updatedData;
 	const response = await csrfFetch(`/api/diveSpots/${spotId}`,{
         method: "PUT",
         body: JSON.stringify({
             title,
             description,
+            imageUrl,
         }),
       });
     const spot = await response.json();
